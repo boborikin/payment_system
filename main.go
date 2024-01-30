@@ -11,8 +11,8 @@ func main() {
 	// инициализирует платежную систему: создает счет "эмитент" и счет "уничтожения"
 	InitPaymentSystem()
 	// создание двух аккаунтов
-	firstAccount := NewAccount(firstSampleIBAN, 100, "active")
-	secondAccount := NewAccount(secondSampleIBAN, 0, "active")
+	firstAccount := NewAccount(firstSampleIBAN, 100, Active)
+	secondAccount := NewAccount(secondSampleIBAN, 0, Active)
 	// пример тела json
 	body := `{"receiver": "BY00CBDC00000000000000000003", "value": 10}`
 	// перевод средств, передавая json строку

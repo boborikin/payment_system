@@ -21,6 +21,11 @@ const (
 	DestructionIBAN = "BY00CBDC00000000000000000666"
 )
 
+const (
+	Active  = "active"
+	Blocked = "blocked"
+)
+
 var (
 	NotEnoughMoneyErr          = errors.New("not enough money on account")
 	AccountNotActive           = errors.New("account not active")
@@ -58,8 +63,7 @@ func (a *account) destructMoney(value float64) error {
 		a.Balance -= value
 		accounts[destructionIBAN].Balance += value
 	} else {
-		err := NotEnoughMoneyErr
-		return err
+		return NotEnoughMoneyErr
 	}
 	return nil
 }
@@ -72,13 +76,11 @@ func (a *account) addEmissionBalance(value float64) {
 func (a *account) transferMoney(receiver string, value float64) error {
 	// проверка на то, что значение не отрицательное или не равно нулю
 	if value <= 0 {
-		err := ValueLessOrEqualZero
-		return err
+		return ValueLessOrEqualZero
 	}
 	// проверка на наличие аккаунта получателя
 	if _, ok := accounts[receiver]; !ok {
-		err := AccountReceiverNotFoundErr
-		return err
+		return AccountReceiverNotFoundErr
 	}
 	// проверка стутуса на активность
 	if a.Status != "active" {
@@ -89,8 +91,7 @@ func (a *account) transferMoney(receiver string, value float64) error {
 		a.Balance -= value
 		accounts[receiver].Balance += value
 	} else {
-		err := NotEnoughMoneyErr
-		return err
+		return NotEnoughMoneyErr
 	}
 	return nil
 }

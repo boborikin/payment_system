@@ -5,7 +5,7 @@ import (
 )
 
 func TestInitNewAccount(t *testing.T) {
-	u1 := NewAccount("1", 100, "active")
+	u1 := NewAccount("1", 100, Active)
 	actual := u1.Balance
 	excepted := 100.0
 	if actual != excepted {
@@ -14,8 +14,8 @@ func TestInitNewAccount(t *testing.T) {
 }
 
 func TestTransferMoney(t *testing.T) {
-	u1 := NewAccount("1", 100, "active")
-	u2 := NewAccount("2", 0, "active")
+	u1 := NewAccount("1", 100, Active)
+	u2 := NewAccount("2", 0, Active)
 	if err := u1.transferMoney("2", 20); err != nil {
 		t.Errorf("Should not produce an error")
 	}
@@ -27,8 +27,8 @@ func TestTransferMoney(t *testing.T) {
 }
 
 func TestTransferMoneyFromBlockedAccount(t *testing.T) {
-	u1 := NewAccount("1", 100, "blocked")
-	u2 := NewAccount("2", 0, "active")
+	u1 := NewAccount("1", 100, Blocked)
+	u2 := NewAccount("2", 0, Active)
 	if err := u1.transferMoney("2", 20); err == nil {
 		t.Errorf("Should produce an error")
 	}
@@ -38,7 +38,7 @@ func TestTransferMoneyFromBlockedAccount(t *testing.T) {
 }
 
 func TestTransferMoneyUnknownReceiver(t *testing.T) {
-	u1 := NewAccount("1", 100, "active")
+	u1 := NewAccount("1", 100, Active)
 	if err := u1.transferMoney("unknown", 20); err == nil {
 		t.Errorf("Should produce an error")
 	}

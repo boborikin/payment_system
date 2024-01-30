@@ -83,7 +83,7 @@ func (a *account) transferMoney(receiver string, value float64) error {
 		return AccountReceiverNotFoundErr
 	}
 	// проверка стутуса на активность
-	if a.Status != "active" {
+	if a.Status != Active {
 		return AccountNotActive
 	}
 	// проверка на достаточность средств на балансе и перевод средств

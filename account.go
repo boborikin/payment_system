@@ -45,8 +45,8 @@ func NewAccount(IBAN string, InitialBalance float64, Status string) *account {
 }
 
 func InitPaymentSystem() {
-	NewAccount(EmissionIBAN, 0, "active")
-	NewAccount(DestructionIBAN, 0, "active")
+	NewAccount(EmissionIBAN, 0, Active)
+	NewAccount(DestructionIBAN, 0, Active)
 }
 
 func (a *account) getEmissionIBAN() string {
